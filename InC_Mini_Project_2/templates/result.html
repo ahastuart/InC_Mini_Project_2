@@ -1,0 +1,33 @@
+{% include 'include/header.html' %}
+
+<main>
+    <div style="text-align: center; padding: 30px;">
+        <h1>작성된 꿈 결과</h1>
+
+        <!-- 작성 내용 1 -->
+        <div style="margin-top: 20px; text-align: left; display: inline-block; width: 80%;">
+            <h2>작성 내용 1</h2>
+            <p style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f8f9fa;">
+                {{ dream_content }}
+            </p>
+        </div>
+
+        <!-- 분석된 꿈내용 -->
+        <div style="margin-top: 30px; text-align: left; display: inline-block; width: 80%;">
+            <h2>분석된 꿈내용</h2>
+            <p style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f1f1f1;">
+                {{ other_content_1 }}
+            </p>
+        </div>
+
+        <!-- 추천음악 -->
+        <div style="margin-top: 30px; text-align: left; display: inline-block; width: 80%;">
+            <h2>추천 음악</h2>
+            <p style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #f8f9fa;">
+                {{ other_content_2 }}
+            </p>
+        </div>
+    </div>
+</main>
+
+{% include 'include/footer.html' %}
