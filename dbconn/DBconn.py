@@ -1,13 +1,11 @@
 import pymysql
+from config import DB_CONFIG
+
 class dbconn:
     @classmethod
-    def get_db(self):
-        return pymysql.connect(
-            host = 'localhost',
-            user = 'root',
-            password = 'qwer1234',
-            db = 'subway_station_proj',
-            charset = 'utf8',
-            port = 3306,
-            autocommit = True            
-        )
+    def get_db(cls):
+        try:
+            return pymysql.connect(**DB_CONFIG)
+        except Exception as e:
+            print(f"데이터베이스 연결 실패: {e}")
+            raise
