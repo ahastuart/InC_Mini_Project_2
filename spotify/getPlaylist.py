@@ -38,7 +38,12 @@ def main():
     response_json = r.json()
     tracks = response_json['tracks']['items']
     
-    track_names = [item['track']['name'] for item in tracks]
+    track_names = []
+    for item in tracks:
+        track_name = item['track']['name']
+        artists = [artist['name'] for artist in item['track']['artists']]  # 여러 아티스트가 있을 수 있으므로 리스트로 저장
+        artist_names = ', '.join(artists)  # 아티스트 이름들을 쉼표로 구분하여 하나의 문자열로 결합
+        track_names.append(f"{track_name} - {artist_names}")
 
     for name in track_names:
         print(name)
