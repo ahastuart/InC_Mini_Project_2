@@ -20,3 +20,4 @@ rsa==4.9
 six==1.17.0
 uritemplate==4.1.1
 urllib3==2.2.3
+boto3==1.28.57

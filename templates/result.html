@@ -111,10 +111,15 @@
 
             <!-- 분석된 꿈내용 -->
             <div>
-                <h2>분석된 꿈내용</h2>
-                <p>
-                    {{ other_content_1 }}
-                </p>
+                <h2>꿈 분석 결과</h2>
+                <ul>
+                    <li><strong>긍정적:</strong> {{ analysis['positive'] }}</li>
+                    <li><strong>부정적:</strong> {{ analysis['negative'] }}</li>
+                    <li><strong>중립적:</strong> {{ analysis['neutral'] }}</li>
+                    <li><strong>혼합적:</strong> {{ analysis['mixed'] }}</li>
+                </ul>
+                <p><strong>주요 감정:</strong> {{ analysis['sentiment'] }}</p>
+                <p><strong>추출된 키워드:</strong> {{ analysis['keyword'] }}</p>
             </div>
 
             <!-- 추천음악 -->
