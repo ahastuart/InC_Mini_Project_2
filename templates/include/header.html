@@ -1,0 +1,23 @@
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <script>
+      alert("{{messages[-1]}}")
+    </script>
+  {% endif %}
+{% endwith %}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>DreamMelody</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/styles.css') }}?v=1.0" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/station.js') }}?v=1.0"></script>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}?v=1.0"></script>
+
+    </head>
