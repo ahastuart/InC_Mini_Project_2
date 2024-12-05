@@ -9,6 +9,7 @@ def dream_form():
     if request.method == 'POST':
         # 폼 데이터 가져오기
         dream_content = request.form.get('dream_content', '')
+        print(dream_content)
         return redirect(url_for('dream_page.result_page', dream_content=dream_content))
 
     # GET 요청 시 form.html 렌더링
