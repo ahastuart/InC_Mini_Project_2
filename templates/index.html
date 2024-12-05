@@ -1,0 +1,147 @@
+{% include 'include/header.html' %}
+
+<main>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>폼 구현</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
+
+
+    .banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px; /* 배너 높이 통일 */
+        padding: 0 20px; /* 좌우 여백 통일 */
+        background-color: #212529;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .banner-left {
+        text-align: left;
+    }
+
+    .banner-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    .banner-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #495057;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .banner-button:hover {
+        background-color: #343a40;
+    }
+
+    main {
+        margin-top: 80px; /* 배너 높이 + 여백 설정 */
+    }
+
+    .form-container {
+        position: fixed; /* 화면 중앙 고정 */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* 화면 중앙 정렬 */
+        width: 600px; /* 폼 너비 */
+        padding: 40px; /* 내부 여백 */
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px; /* 둥근 모서리 */
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container textarea {
+        width: 100%;
+        height: 300px; /* 텍스트 입력 크기 */
+        padding: 20px; /* 내부 여백 */
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: none;
+        font-size: 18px; /* 글자 크기 */
+    }
+
+    .form-container button {
+        width: 48%;
+        padding: 15px; /* 버튼 크기 */
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .form-container button.cancel {
+        background-color: #f8f9fa;
+        color: #000;
+        border: 1px solid #ddd;
+    }
+
+    .form-container button.submit {
+        background-color: #212529;
+        color: #ffffff;
+    }
+
+    .form-container button + button {
+        margin-left: 4%;
+    }
+
+        </style>
+    </head>
+    <body>
+        <!-- 배너 -->
+        <header>
+            <div class="banner">
+                <div class="banner-left">
+                    DreamMelody
+                </div>
+                <div class="banner-right">
+                    <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
+                    <a href="{{ url_for('user_page.user_register_service') }}" class="banner-button">회원가입</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- 폼 컨테이너 -->
+        <div class="form-container">
+            <form action="{{ url_for('dream_page.dream_form') }}" method="POST">
+                <textarea name="dream_content" id="dreamTextarea" placeholder="여기에 꿈 내용을 작성해주세요..." required></textarea>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                    <button type="button" class="cancel" onclick="document.getElementById('dreamTextarea').value=''">취소</button>
+                    <button type="submit" class="submit">제출</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- JavaScript -->
+        <script>
+            function clearTextarea() {
+                // 텍스트 영역 초기화
+                document.getElementById('dreamTextarea').value = '';
+            }
+        </script>
+    </body>
+</main>
+
+
