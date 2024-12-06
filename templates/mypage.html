@@ -59,41 +59,35 @@
         padding: 30px;
     }
 
-    .content-container h1 {
-        margin-bottom: 20px;
-    }
-
-    .content-container div {
-        margin-top: 30px;
+    table {
+        width: 60%;
+        margin: 0 auto;
+        border-collapse: collapse;
         text-align: left;
-        display: inline-block;
-        width: 80%;
     }
 
-    .content-container div p {
+    th, td {
         border: 1px solid #ddd;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #f8f9fa;
+        padding: 10px;
     }
 
-    .content-container div:nth-child(2) p {
-        background-color: #f1f1f1; /* 분석된 꿈내용 색상 변경 */
+    th {
+        background-color: #f4f4f4;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
     }
 </style>
 
 <body>
-    <!-- 배너 -->
     <header>
         <div class="banner">
-    <div class="banner-left">
-        <a href="{{ url_for('user_page.main') }}">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" 
-             alt="DreamMelody Logo" 
-             class="banner-logo">
-        </a>
-
-    </div>
+            <div class="banner-left">
+                <a href="{{ url_for('user_page.main') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="DreamMelody Logo" class="banner-logo">
+                </a>
+            </div>
             <div class="banner-right">
                 {% if session['email'] %}
                     <a style="font-weight: bold;">{{ session['email'] }}님, 반갑습니다. &nbsp;&nbsp;</a>
@@ -105,44 +99,34 @@
             </div>
         </div>
     </header>
-
-    <!-- 컨텐츠 -->
+    
     <main>
         <div class="content-container">
-            <h1>작성된 꿈 결과</h1>
-
-            <!-- 작성 내용 1 -->
-            <div>
-                <h2>작성 내용 1</h2>
-                <p>
-                    {{ dream_content }}
-                </p>
-            </div>
-
-            <!-- 분석된 꿈내용 -->
-            <div class="chart-container">
-                <h2>감정 분석 결과</h2>
-                <!--<img src="data:image/png;base64,{{ chart_data }}" alt="Sentiment Analysis Chart">-->
-                <pre>{{ chart_data }}</pre>
-            </div>
-
-            <!-- 추천음악 -->
-            <div class="video-container">
-                <h2>추천 음악</h2>
-                <div class="video-grid">
-                    {% for video in recommended_music %}
-                    <div class="video-wrapper">
-                        <p>{{video.track}}</p>
-                        <iframe
-                            src="https://www.youtube.com/embed/{{ video.video_id }}"
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            <h1>사용자 정보</h1>
+            {% if user_data %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ user_data.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>이메일</th>
+                        <td>{{ user_data.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>{{ user_data.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>가입 날짜</th>
+                        <td>{{ user_data.created_date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% else %}
+                <p style="text-align: center;">사용자 정보를 찾을 수 없습니다.</p>
+            {% endif %}
         </div>
     </main>
 </body>

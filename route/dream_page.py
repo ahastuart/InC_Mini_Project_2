@@ -69,3 +69,8 @@ def start_service():
     # main.html 렌더링
     return render_template('main.html')
 
+def inject_user():
+    return {
+        'email': session.get('email'),
+    }
+
