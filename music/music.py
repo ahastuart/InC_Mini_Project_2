@@ -15,7 +15,7 @@ def get_playlist():
         
         video_info_list = []
 
-        for track in track_list[:3]:
+        for track in track_list:
             video_info = getYoutubeId.main(track)
             video_info_list.append({
                 'track': track,
