@@ -110,11 +110,11 @@
             </div>
 
             <!-- 분석된 꿈내용 -->
-            <div>
-                <h2>분석된 꿈내용</h2>
-                <p>
-                    {{ other_content_1 }}
-                </p>
+            <div class="chart-container">
+                <h2>감정 분석 결과</h2>
+                <!-- <img src="data:image/png;base64,{{ chart_data }}" alt="Sentiment Analysis Chart">
+                  -->
+                <pre>{{ chart_data }}</pre>
             </div>
 
             <!-- 추천음악 -->
