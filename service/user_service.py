@@ -111,6 +111,9 @@ def is_valid_password(password):
 def index():
     return render_template('index.html')  # 렌더템플릿으로 데이터 전달
 
+def main():
+        return render_template('main.html')
+    
 def logout():
     session.pop('user_id', None)
     session.pop('user_name', None)
