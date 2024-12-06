@@ -25,6 +25,9 @@ def get_playlist(dream_id, analysis_result):
             })
             music = MusicDAO.new_music_recommendation(dream_id, track, video_info[0]['videoId'])
 
+        for video in video_info_list:
+            print(video)
+            
         return jsonify({
             "videos": video_info_list
         }), 200

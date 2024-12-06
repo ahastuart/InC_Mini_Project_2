@@ -52,7 +52,7 @@ def dream_form():
             return redirect(url_for('dream_page.dream_form'))
 
     # GET 요청 시 form.html 렌더링
-    return render_template('form.html')
+    return render_template('result.html')
 
 # 결과 페이지 라우트
 @bp.route('/result', methods=['GET'])
