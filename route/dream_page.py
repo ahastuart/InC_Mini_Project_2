@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from comprehend.comprehend_utils import analyze_dream_content
 from comprehend.com_visualize import create_sentiment_chart_text
 from comprehend.com_db import save_dream, save_analysis_result
+from music.music import get_playlist
 
 # Blueprint 생성
 bp = Blueprint('dream_page', __name__, url_prefix='/dream')
@@ -36,7 +37,7 @@ def dream_form():
             chart_data = create_sentiment_chart_text(analysis_result)
 
             # 5. 추천 음악 로직 추가 (간단히 문자열로 설정)
-            # recommended_music = "Relaxing Dreams - Spotify"
+            recommended_music = get_playlist(dream_id, analysis_result)
 
             # 결과 페이지 렌더링
             return render_template(

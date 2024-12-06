@@ -7,12 +7,12 @@ from music.musicdb import *
 # music_bp = Blueprint('music', __name__, url_prefix='/api/music')
 
 # @music_bp.route('/', methods=['GET'])
-def get_playlist(dream_id, emotion, keyword):
+def get_playlist(dream_id, analysis_result):
     try:
         # dream_id = request.args.get('dream_id')
         # emotion = request.args.get('emotion')
         # keyword = request.args.get('keyword') 
-        playlist_id = getPlaylist.main(emotion=emotion, keyword=keyword)
+        playlist_id = getPlaylist.main(emotion=analysis_result['sentiment'], keyword=analysis_result['keyword'])
         track_list = getTracks.main(playlist_id)
         
         video_info_list = []
