@@ -4,14 +4,14 @@ from music.spotify import search as getPlaylist
 from music.youtube import search as getYoutubeId
 from music.musicdb import *
 
-music_bp = Blueprint('music', __name__, url_prefix='/api/music')
+# music_bp = Blueprint('music', __name__, url_prefix='/api/music')
 
-@music_bp.route('/', methods=['GET'])
-def get_playlist():
+# @music_bp.route('/', methods=['GET'])
+def get_playlist(dream_id, emotion, keyword):
     try:
-        dream_id = request.args.get('dream_id')
-        emotion = request.args.get('emotion')
-        keyword = request.args.get('keyword') 
+        # dream_id = request.args.get('dream_id')
+        # emotion = request.args.get('emotion')
+        # keyword = request.args.get('keyword') 
         playlist_id = getPlaylist.main(emotion=emotion, keyword=keyword)
         track_list = getTracks.main(playlist_id)
         
