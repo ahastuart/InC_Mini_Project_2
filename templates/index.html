@@ -107,6 +107,15 @@
         margin-left: 4%;
     }
 
+    .email-info {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 16px;
+        color: #555;
+        font-weight: bold;
+    }
+
+
         </style>
     </head>
     <body>
@@ -117,11 +126,22 @@
                     DreamMelody
                 </div>
                 <div class="banner-right">
-                    <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
-                    <a href="{{ url_for('user_page.user_register_service') }}" class="banner-button">회원가입</a>
+                    {% if user_id %}
+                        <span class="banner-button">환영합니다, {{ user_id }}님</span>
+                        <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
+                    {% else %}
+                        <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
+                        <a href="{{ url_for('mypage.mypage') }}" class="banner-button">마이페이지</a>
+                    {% endif %}
                 </div>
             </div>
         </header>
+
+        {% if email %}
+            <div style="margin-top: 20px; text-align: center; font-size: 16px; color: #555;">
+                현재 로그인된 이메일: <strong>{{ email }}</strong>
+            </div>
+        {% endif %}
 
         <!-- 폼 컨테이너 -->
         <div class="form-container">
@@ -132,6 +152,7 @@
                     <button type="submit" class="submit">제출</button>
                 </div>
             </form>
+            <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
         </div>
 
         <!-- JavaScript -->

@@ -1,0 +1,105 @@
+{% include 'include/header.html' %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px; /* 배너 높이 통일 */
+        padding: 0 20px; /* 좌우 여백 통일 */
+        background-color: #212529;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .banner-left {
+        text-align: left;
+    }
+
+    .banner-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    .banner-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #495057;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .banner-button:hover {
+        background-color: #343a40;
+    }
+
+    main {
+        margin-top: 80px; /* 배너 높이 + 여백 설정 */
+    }
+
+    .content-container {
+        text-align: center;
+        padding: 30px;
+    }
+
+    .content-container h1 {
+        margin-bottom: 20px;
+    }
+
+    .content-container div {
+        margin-top: 30px;
+        text-align: left;
+        display: inline-block;
+        width: 80%;
+    }
+
+    .content-container div p {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+    }
+
+    .content-container div:nth-child(2) p {
+        background-color: #f1f1f1; /* 분석된 꿈내용 색상 변경 */
+    }
+</style>
+
+<body>
+    <!-- 배너 -->
+    <header>
+        <div class="banner">
+            <div class="banner-left">
+                DreamMelody
+            </div>
+            <div class="banner-right">
+                <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- 컨텐츠 -->
+    <main>
+test
+    </main>
+</body>
+
+{% include 'include/footer.html' %}

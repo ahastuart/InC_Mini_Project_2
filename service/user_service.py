@@ -18,6 +18,7 @@ def user_login_service():
         
         logging.info(f'Login attempt for user: {id}')
         cursor = dbconn.get_db().cursor(pymysql.cursors.DictCursor)
+        
         SQL = "SELECT * FROM users WHERE email = %s"
         try:
             cursor.execute(SQL, (id,))
@@ -25,8 +26,9 @@ def user_login_service():
             # 조회 결과 하나 이상이고 비밀번호가 일치하는 경우
             if user and check_password_hash(user['password'], pw):
                 # 로그인 성공 시 세션에 사용자 정보 저장
-                session['user_id'] = user['email']
-                session['user_name'] = user['username']
+                session['user_id'] = user['id']
+                session['username'] = user['username']
+                session['email'] = user['email']
                 flash("로그인 성공!")
                 logging.info(f'Successful login for user: {id}')
                 return redirect(url_for('user_page.index')) #경로수정
@@ -41,6 +43,36 @@ def user_login_service():
             return render_template('login.html')
         finally:
             dbconn.get_db().close()
+
+
+
+# def user_login_service():
+#     if request.method == 'POST':
+#         id = request.form.get('id')
+#         pw = request.form.get('password')
+
+#         connection = dbconn.get_db()
+#         cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+#         try:
+#             SQL = "SELECT * FROM users WHERE email = %s"
+#             cursor.execute(SQL, (id,))
+#             user = cursor.fetchone()
+
+#             if user and check_password_hash(user['password'], pw):
+#                 session['email'] = user['email']  # 세션에 이메일 저장
+#                 session['username'] = user['username']  # 세션에 사용자 이름 저장
+#                 print("Session data:", session)  # 디버깅용 세션 출력
+#                 flash("로그인 성공!")
+#                 return redirect(url_for('index'))
+#             else:
+#                 flash("로그인 실패. 아이디 또는 비밀번호를 확인해주세요.")
+#                 return render_template('login.html')
+#         except Exception as e:
+#             flash(f"오류 발생: {str(e)}")
+#             return render_template('login.html')
+#         finally:
+#             connection.close()
 
 def user_register_service():
     if request.method == 'GET':
@@ -109,12 +141,23 @@ def is_valid_password(password):
     return re.match(pattern, password) is not None
 
 def index():
-    return render_template('index.html')  # 렌더템플릿으로 데이터 전달
+    return render_template('index.html', user_email=session.get('user_id'))  # 렌더템플릿으로 데이터 전달
 
 def main():
         return render_template('main.html')
     
+# def logout():
+#     session.pop('user_id', None)
+#     session.pop('username', None)
+#     session.pop('email', None)
+#     return redirect(url_for('user_page.user_login_service'))
+
+# def logout():
+#     session.clear()  # 모든 세션 데이터 제거
+#     flash("로그아웃되었습니다.")
+#     return redirect(url_for('user_login_service'))
+
 def logout():
-    session.pop('user_id', None)
-    session.pop('user_name', None)
+    session.clear()  # 세션 데이터 제거
+    flash("로그아웃되었습니다.")
     return redirect(url_for('user_page.user_login_service'))
