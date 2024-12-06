@@ -3,6 +3,7 @@ from comprehend.comprehend_utils import analyze_dream_content
 from comprehend.com_visualize import create_sentiment_chart_text
 from comprehend.com_db import save_dream, save_analysis_result
 from music.music import get_playlist
+from music.deepL import translate
 
 # Blueprint 생성
 bp = Blueprint('dream_page', __name__, url_prefix='/dream')
@@ -31,6 +32,7 @@ def dream_form():
             analysis_result = analyze_dream_content(dream_content)
 
             # 3. 분석 결과 저장
+            en_dream_content = translate(dream_content)
             save_analysis_result(dream_id, analysis_result)
 
             # 4. 감정 분석 차트 생성
