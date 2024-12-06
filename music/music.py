@@ -2,12 +2,14 @@ from flask import Blueprint, jsonify, request
 from music.spotify import getPlaylist as getTracks
 from music.spotify import search as getPlaylist
 from music.youtube import search as getYoutubeId
+from music.musicdb import *
 
 music_bp = Blueprint('music', __name__, url_prefix='/api/music')
 
 @music_bp.route('/', methods=['GET'])
 def get_playlist():
     try:
+        dream_id = request.args.get('dream_id')
         emotion = request.args.get('emotion')
         keyword = request.args.get('keyword') 
         playlist_id = getPlaylist.main(emotion=emotion, keyword=keyword)
@@ -21,7 +23,8 @@ def get_playlist():
                 'track': track,
                 'video_id': video_info[0]['videoId']
             })
-        
+            music = MusicDAO.new_music_recommendation(dream_id, track, video_info[0]['videoId'])
+
         return jsonify({
             "videos": video_info_list
         }), 200
