@@ -86,19 +86,55 @@
     <!-- 배너 -->
     <header>
         <div class="banner">
-            <div class="banner-left">
-                DreamMelody
-            </div>
+    <div class="banner-left">
+        <a href="{{ url_for('user_page.main') }}">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" 
+             alt="DreamMelody Logo" 
+             class="banner-logo">
+        </a>
+
+    </div>
             <div class="banner-right">
-                <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
-                
+                {% if session['email'] %}
+                    <a style="font-weight: bold;">{{ session['email'] }}님, 반갑습니다. &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('mypage.mypage') }}" class="banner-button">마이페이지</a>
+                    <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
+                {% else %}
+                    <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
+                {% endif %}
             </div>
         </div>
     </header>
 
     <!-- 컨텐츠 -->
     <main>
-test
+        <div class="content-container">
+            <h1>사용자 정보</h1>
+            {{session['email']}}
+            {{ user }}
+            {% if user %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이메일</th>
+                        <th>이름</th>
+                        <th>가입 날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.created_date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% else %}
+                <p style="text-align: center;">사용자 정보를 찾을 수 없습니다.</p>
+            {% endif %}
+        </div>
     </main>
 </body>
 

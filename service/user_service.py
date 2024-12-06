@@ -31,6 +31,7 @@ def user_login_service():
                 session['email'] = user['email']
                 flash("로그인 성공!")
                 logging.info(f'Successful login for user: {id}')
+                print(session)
                 return redirect(url_for('user_page.index')) #경로수정
             # 조회 결과 없거나 비밀번호가 일치하지 않은 경우
             else:
@@ -141,7 +142,10 @@ def is_valid_password(password):
     return re.match(pattern, password) is not None
 
 def index():
-    return render_template('index.html', user_email=session.get('user_id'))  # 렌더템플릿으로 데이터 전달
+    print(session)
+    print(session.get('user_id')) 
+    print(f"Session data after login: {session}")
+    return render_template('index.html', session_data=session)  # 렌더템플릿으로 데이터 전달
 
 def main():
         return render_template('main.html')

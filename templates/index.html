@@ -122,26 +122,26 @@
         <!-- 배너 -->
         <header>
             <div class="banner">
-                <div class="banner-left">
-                    DreamMelody
-                </div>
+        <div class="banner-left">
+            <a href="{{ url_for('user_page.main') }}">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" 
+                 alt="DreamMelody Logo" 
+                 class="banner-logo">
+            </a>
+
+        </div>
                 <div class="banner-right">
-                    {% if user_id %}
-                        <span class="banner-button">환영합니다, {{ user_id }}님</span>
+                    {% if session['email'] %}
+                        <a style="font-weight: bold;">{{ session['email'] }}님, 반갑습니다. &nbsp;&nbsp;</a>
+                        <a href="{{ url_for('mypage.mypage') }}" class="banner-button">마이페이지</a>
                         <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
                     {% else %}
                         <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
-                        <a href="{{ url_for('mypage.mypage') }}" class="banner-button">마이페이지</a>
                     {% endif %}
                 </div>
             </div>
         </header>
 
-        {% if email %}
-            <div style="margin-top: 20px; text-align: center; font-size: 16px; color: #555;">
-                현재 로그인된 이메일: <strong>{{ email }}</strong>
-            </div>
-        {% endif %}
 
         <!-- 폼 컨테이너 -->
         <div class="form-container">
@@ -152,7 +152,7 @@
                     <button type="submit" class="submit">제출</button>
                 </div>
             </form>
-            <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
+
         </div>
 
         <!-- JavaScript -->
