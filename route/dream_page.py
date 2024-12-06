@@ -44,7 +44,7 @@ def dream_form():
                 'result.html',
                 dream_content=dream_content,
                 chart_data=chart_data,
-                # recommended_music=recommended_music
+                recommended_music=recommended_music
             )
 
         except Exception as e:

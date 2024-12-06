@@ -28,9 +28,7 @@ def get_playlist(dream_id, analysis_result):
         for video in video_info_list:
             print(video)
             
-        return jsonify({
-            "videos": video_info_list
-        }), 200
+        return video_info_list
         
     except Exception as e:
         return jsonify({'error': str(e)}), 500

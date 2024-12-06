@@ -118,11 +118,21 @@
             </div>
 
             <!-- 추천음악 -->
-            <div>
+            <div class="video-container">
                 <h2>추천 음악</h2>
-                <p>
-                    {{ other_content_2 }}
-                </p>
+                <div class="video-grid">
+                    {% for video in recommended_music %}
+                    <div class="video-wrapper">
+                        <p>{{video.track}}</p>
+                        <iframe
+                            src="https://www.youtube.com/embed/{{ video.video_id }}"
+                            title="YouTube video player"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </main>
