@@ -20,3 +20,10 @@ def result_page():
     # URL 파라미터에서 데이터 가져오기
     dream_content = request.args.get('dream_content', '작성된 꿈이 없습니다.')
     return render_template('result.html', dream_content=dream_content)
+
+# 시작 서비스 라우트
+@bp.route('/start_service', methods=['GET'])
+def start_service():
+    # main.html 렌더링
+    return render_template('main.html')
+
