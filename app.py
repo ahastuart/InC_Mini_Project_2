@@ -33,6 +33,7 @@ import logging
 # 블루프린트 임포트
 from route.user_route import user_page
 from route.dream_page import bp as dream_page
+from music.music import music_bp
 
 # 로깅 설정
 logging.basicConfig(level=logging.INFO)
@@ -44,12 +45,7 @@ app.secret_key = 'zl934h23i23I23lsc94b'
 # 블루프린트 등록
 app.register_blueprint(user_page)
 app.register_blueprint(dream_page)
-
-# # 기본 라우트 설정
-# @app.route('/')
-# def home():
-#     # 기본 경로에서 dream_page.start_service로 리디렉션
-#     return redirect(url_for('dream_page.start_service'))
+app.register_blueprint(music_bp)
 
 if __name__ == '__main__':
     app.run(debug=True)

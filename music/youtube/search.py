@@ -49,12 +49,9 @@ def info_to_dict(videoId, title, description, url):
   }
   return result
 
-def main():
-    query = "In My Head - NIve" # 예시
+def main(query):
     youtube = build_youtube_search()
     search_response = get_search_response(youtube, query)
     video_info = get_video_info(search_response)
-    print(video_info['0']['videoId'])
-
-if __name__ == "__main__":
-    main()
+    
+    return video_info

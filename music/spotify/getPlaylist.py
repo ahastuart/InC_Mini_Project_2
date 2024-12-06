@@ -7,7 +7,6 @@ import base64
 import json
 import logging
 
-
 load_dotenv()
 
 client_id = os.getenv('SPOTIFY_ID')
@@ -29,22 +28,20 @@ def get_headers(cliend_id, client_secret):
     }
     return headers
 
-def main():
+def main(playlist_id):
     headers = get_headers(client_id, client_secret)
     params = {
-        "q" : "positive" + "%" + "cake", # 감정 % 키워드 (예시)
-        "type" : "playlist",
-        "limit" : "1",
-        "market" : "KR",
-        "offset" : "5"
+        "market" : "KR"
     }
-
-    r = requests.get("https://api.spotify.com/v1/search", params=params, headers=headers)
+    r = requests.get("https://api.spotify.com/v1/playlists/" + playlist_id, params=params, headers=headers)
     response_json = r.json()
-    playlist_id = response_json['playlists']['items'][0]['id']
-    print("playlist ID: " + playlist_id)
+    tracks = response_json['tracks']['items']
+    
+    track_names = []
+    for item in tracks[:3]:
+        track_name = item['track']['name']
+        artists = [artist['name'] for artist in item['track']['artists']]  # 여러 아티스트가 있을 수 있으므로 리스트로 저장
+        artist_names = ', '.join(artists)  # 아티스트 이름들을 쉼표로 구분하여 하나의 문자열로 결합
+        track_names.append(f"{track_name} - {artist_names}")
 
-    sys.exit(0)
-
-if __name__ == "__main__":
-    main()
+    return track_names
