@@ -1,0 +1,134 @@
+{% include 'include/header.html' %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px; /* 배너 높이 통일 */
+        padding: 0 20px; /* 좌우 여백 통일 */
+        background-color: #212529;
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .banner-left {
+        text-align: left;
+    }
+
+    .banner-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    .banner-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #ffffff;
+        background-color: #495057;
+        transition: background-color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .banner-button:hover {
+        background-color: #343a40;
+    }
+
+    main {
+        margin-top: 80px; /* 배너 높이 + 여백 설정 */
+    }
+
+    .content-container {
+        text-align: center;
+        padding: 30px;
+    }
+
+    table {
+        width: 60%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
+
+<body>
+    <header>
+        <div class="banner">
+            <div class="banner-left">
+                <a href="{{ url_for('user_page.main') }}">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="DreamMelody Logo" class="banner-logo">
+                </a>
+            </div>
+            <div class="banner-right">
+                {% if session['email'] %}
+                    <a style="font-weight: bold;">{{ session['email'] }}님, 반갑습니다. &nbsp;&nbsp;</a>
+                    <a href="{{ url_for('mypage.mypage') }}" class="banner-button">마이페이지</a>
+                    <a href="{{ url_for('user_page.logout') }}" class="banner-button">로그아웃</a>
+                {% else %}
+                    <a href="{{ url_for('user_page.user_login_service') }}" class="banner-button">로그인</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-container">
+            <h1>사용자 정보</h1>
+            {% if user_data %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ user_data.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>이메일</th>
+                        <td>{{ user_data.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>{{ user_data.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>가입 날짜</th>
+                        <td>{{ user_data.created_date }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% else %}
+                <p style="text-align: center;">사용자 정보를 찾을 수 없습니다.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+
+{% include 'include/footer.html' %}
