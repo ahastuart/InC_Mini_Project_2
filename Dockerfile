@@ -9,14 +9,20 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Nginx 설치
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
+
 # 소스 코드 복사
 COPY . .
 
 # 환경 변수 파일 복사
 COPY .env .env
 
-# 애플리케이션 실행 포트 설정
-EXPOSE 5000
+# Nginx 설정 복사
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# 애플리케이션 실행 명령어
-CMD ["gunicorn", "--bind", "127.0.0.1:5000", "app:app"]
+# 애플리케이션 실행 포트 설정
+EXPOSE 80
+
+# Gunicorn과 Nginx 실행
+CMD ["sh", "-c", "gunicorn --bind 127.0.0.1:5000 app:app & nginx -g 'daemon off;'"]
