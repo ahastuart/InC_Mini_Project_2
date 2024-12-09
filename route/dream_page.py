@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from comprehend.comprehend_utils import analyze_dream_content
-from comprehend.com_visualize import create_sentiment_chart_text
+# from comprehend.com_visualize import create_sentiment_chart_text
 from comprehend.com_db import save_dream, save_analysis_result
 from music.music import get_playlist
 from music.deepL import translate
@@ -29,14 +29,15 @@ def dream_form():
             dream_id = save_dream(user_id, dream_content)
 
             # 2. AWS Comprehend로 꿈 내용 분석
+            en_dream_content = translate(dream_content)
             analysis_result = analyze_dream_content(dream_content)
 
             # 3. 분석 결과 저장
-            en_dream_content = translate(dream_content)
+            # en_dream_content = translate(dream_content)
             save_analysis_result(dream_id, analysis_result)
 
             # 4. 감정 분석 차트 생성
-            chart_data = create_sentiment_chart_text(analysis_result)
+            # chart_data = create_sentiment_chart_text(analysis_result)
 
             # 5. 추천 음악 로직 추가 (간단히 문자열로 설정)
             recommended_music = get_playlist(dream_id, analysis_result)
@@ -45,7 +46,7 @@ def dream_form():
             return render_template(
                 'result.html',
                 dream_content=dream_content,
-                chart_data=chart_data,
+                analysis_result=analysis_result,
                 recommended_music=recommended_music
             )
 

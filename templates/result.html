@@ -112,9 +112,71 @@
             <!-- 분석된 꿈내용 -->
             <div class="chart-container">
                 <h2>감정 분석 결과</h2>
-                <!--<img src="data:image/png;base64,{{ chart_data }}" alt="Sentiment Analysis Chart">-->
-                <pre>{{ chart_data }}</pre>
+                <canvas id="polarAreaChart" style="max-width: 400px; max-height: 400px; margin: 0;"></canvas>
             </div>
+            
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+              // Flask에서 전달된 AWS Comprehend 분석 결과
+              const analysisResult = JSON.parse('{{ analysis_result | tojson | default({}) }}');
+            
+              // 차트를 위한 데이터 구성
+              const chartData = {
+                labels: ['Positive', 'Negative', 'Neutral', 'Mixed'],
+                datasets: [
+                  {
+                    label: 'Emotion Scores',
+                    data: [
+                      analysisResult.positive || 0,
+                      analysisResult.negative || 0,
+                      analysisResult.neutral || 0,
+                      analysisResult.mixed || 0
+                    ],
+                    backgroundColor: [
+                      'rgba(75, 192, 192, 0.5)', // Positive
+                      'rgba(255, 99, 132, 0.5)', // Negative
+                      'rgba(255, 205, 86, 0.5)', // Neutral
+                      'rgba(153, 102, 255, 0.5)' // Mixed
+                    ],
+                  }
+                ]
+              };
+            
+              // 차트 설정
+              const config = {
+                type: 'polarArea',
+                data: chartData,
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: true, // 반응형 비율 유지
+                  scales: {
+                    r: {
+                      pointLabels: {
+                        display: true,
+                        centerPointLabels: true,
+                        font: {
+                          size: 14
+                        }
+                      }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      position: 'top',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Dream Sentiment Analysis'
+                    }
+                  }
+                },
+              };
+            
+              // 차트 생성
+              const ctx = document.getElementById('polarAreaChart').getContext('2d');
+              new Chart(ctx, config);
+            </script>
+            
 
             <!-- 추천음악 -->
             <div class="video-container">
