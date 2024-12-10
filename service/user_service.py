@@ -4,7 +4,6 @@ from dbconn.DBconn import *
 from werkzeug.security import check_password_hash, generate_password_hash
 import re
 import logging
-# from service.search_station_service import fetch_station_data
 
 # user.log 파일에 별도로 발생하는 log 저장
 logging.basicConfig(level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
@@ -45,35 +44,6 @@ def user_login_service():
         finally:
             dbconn.get_db().close()
 
-
-
-# def user_login_service():
-#     if request.method == 'POST':
-#         id = request.form.get('id')
-#         pw = request.form.get('password')
-
-#         connection = dbconn.get_db()
-#         cursor = connection.cursor(pymysql.cursors.DictCursor)
-
-#         try:
-#             SQL = "SELECT * FROM users WHERE email = %s"
-#             cursor.execute(SQL, (id,))
-#             user = cursor.fetchone()
-
-#             if user and check_password_hash(user['password'], pw):
-#                 session['email'] = user['email']  # 세션에 이메일 저장
-#                 session['username'] = user['username']  # 세션에 사용자 이름 저장
-#                 print("Session data:", session)  # 디버깅용 세션 출력
-#                 flash("로그인 성공!")
-#                 return redirect(url_for('index'))
-#             else:
-#                 flash("로그인 실패. 아이디 또는 비밀번호를 확인해주세요.")
-#                 return render_template('login.html')
-#         except Exception as e:
-#             flash(f"오류 발생: {str(e)}")
-#             return render_template('login.html')
-#         finally:
-#             connection.close()
 
 def user_register_service():
     if request.method == 'GET':
@@ -150,16 +120,7 @@ def index():
 def main():
         return render_template('main.html')
     
-# def logout():
-#     session.pop('user_id', None)
-#     session.pop('username', None)
-#     session.pop('email', None)
-#     return redirect(url_for('user_page.user_login_service'))
 
-# def logout():
-#     session.clear()  # 모든 세션 데이터 제거
-#     flash("로그아웃되었습니다.")
-#     return redirect(url_for('user_login_service'))
 
 def logout():
     session.clear()  # 세션 데이터 제거
