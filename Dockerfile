@@ -12,6 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Nginx 설치
 RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
+# ec2-user 추가
+RUN useradd -m ec2-user
+
 # 소스 코드 복사
 COPY . .
 
