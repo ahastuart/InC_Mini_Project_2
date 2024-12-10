@@ -128,6 +128,49 @@
                 <p style="text-align: center;">사용자 정보를 찾을 수 없습니다.</p>
             {% endif %}
         </div>
+
+        <div class="content-container">
+            <h2>추천 노래 목록</h2>
+            {% if recommendations %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>꿈 내용</th>
+                            <th>노래 제목</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for content, songs in recommendations.items() %}
+                        <tr>
+                            <td rowspan="{{ songs|length if songs else 1 }}">{{ content }}</td>
+                            {% if songs %}
+                                <td>{{ songs[0] }}</td>
+                            </tr>
+                            {% for song in songs[1:] %}
+                            <tr>
+                                <td>{{ song }}</td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <td>관련 노래 없음</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>추천 노래가 없습니다.</p>
+            {% endif %}
+        </div>
+
+        <div class="content-container">
+            <h2>추천 노래 목록 (디버깅)</h2>
+            <pre>{{ recommendations }}</pre>
+        </div>
+        
+        
+        
+        
     </main>
 </body>
 
